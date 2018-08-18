@@ -8,11 +8,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -196,13 +192,12 @@ public class Bulkload {
 			BufferedReader reader = new BufferedReader(new FileReader(csv_path));
 			CsvListReader csvReader = new CsvListReader(reader,csv_prefs)) {
 			
-			String [] header = csvReader.getHeader(true);
+//			String [] header = csvReader.getHeader(true);
+			String[] header = {"md5", "value"};
+//			System.out.println(Arrays.asList(header));
 
-			String insert_stmt = String.format("INSERT INTO %s.%s ("
-					+ Joiner.on(", ").join(header)
-					+ ") VALUES (" + new String(new char[header.length - 1]).replace("\0", "?, ")
-					+ "?)", keyspace, table);
-
+			String insert_stmt = String.format("INSERT INTO %s.%s (\"md5\", \"value\") values (?, ?)", keyspace, table);
+//			System.out.println(insert_stmt);
 			// Prepare SSTable writer
 			CQLSSTableWriter.Builder builder = CQLSSTableWriter.builder();
 			// set output directory
@@ -221,9 +216,9 @@ public class Bulkload {
 			List<String> line;
 			while ((line = csvReader.read()) != null) {
 				Map<String, Object> row = new HashMap<>();
-				for(int i = 0; i < header.length; i++) {
-					row.put(header[i], parse(line.get(i), columns.get(header[i]), primaryColumns.contains(header[i])));
-				}
+				row.put("md5", line.get(0) + line.get(1));
+				System.out.println(line.get(0) + line.get(1));
+				row.put("value", line.get(2));
 				writer.addRow(row);
 			}
 			
