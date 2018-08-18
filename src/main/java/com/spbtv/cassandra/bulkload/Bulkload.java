@@ -217,7 +217,7 @@ public class Bulkload {
 			while ((line = csvReader.read()) != null) {
 				Map<String, Object> row = new HashMap<>();
 				row.put("md5", line.get(0) + line.get(1));
-				System.out.println(line.get(0) + line.get(1));
+//				System.out.println(line.get(0) + line.get(1));
 				row.put("value", line.get(2));
 				writer.addRow(row);
 			}
