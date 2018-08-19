@@ -233,6 +233,6 @@ public class Bulkload {
             e.printStackTrace();
         }
 
-        System.out.println(String.format("Done: %s", csv_path);
+        System.out.println(String.format("Done: %s", csv_path));
     }
 }
