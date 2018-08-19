@@ -143,7 +143,7 @@ public class Bulkload {
 
     public static void main(String[] args) {
         if (args.length < 4) {
-            System.out.println("usage: java bulkload.BulkLoad <keyspace> <path/to/schema.cql> <path/to/input.csv> <path/to/output/dir> [optional csv prefs json - default is {\"col_sep\":\",\", \"quote_char\":\"'\"} ]");
+            System.out.println("[v3@daimon]usage: java bulkload.BulkLoad <keyspace> <path/to/schema.cql> <path/to/input.csv> <path/to/output/dir> [optional csv prefs json - default is {\"col_sep\":\",\", \"quote_char\":\"'\"} ]");
             return;
         }
 
